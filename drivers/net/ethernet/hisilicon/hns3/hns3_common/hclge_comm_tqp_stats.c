@@ -75,7 +75,7 @@ int hclge_comm_tqps_update_stats(struct hnae3_handle *handle,
 		ret = hclge_comm_cmd_send(hw, &desc, 1);
 		if (ret) {
 			dev_err(&hw->cmq.csq.pdev->dev,
-				"failed to get tqp stat, ret = %d, tx = %u.\n",
+				"failed to get tqp stat, ret = %d, rx = %u.\n",
 				ret, i);
 			return ret;
 		}
@@ -85,11 +85,11 @@ int hclge_comm_tqps_update_stats(struct hnae3_handle *handle,
 		hclge_comm_cmd_setup_basic_desc(&desc, HCLGE_OPC_QUERY_TX_STATS,
 						true);
 
-		desc.data[0] = cpu_to_le32(tqp->index & 0x1ff);
+		desc.data[0] = cpu_to_le32(tqp->index);
 		ret = hclge_comm_cmd_send(hw, &desc, 1);
 		if (ret) {
 			dev_err(&hw->cmq.csq.pdev->dev,
-				"failed to get tqp stat, ret = %d, rx = %u.\n",
+				"failed to get tqp stat, ret = %d, tx = %u.\n",
 				ret, i);
 			return ret;
 		}
